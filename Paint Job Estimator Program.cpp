@@ -90,15 +90,15 @@ int main()
     {
         cout << "What is the square feet of room " << x << "? \n";
         squareFeet = getSqFt(squareFeet);
-        //cout << squareFeet << endl;
+        
 
         gallons = gallonsForRoom(squareFeet);
-        //cout << gallons << endl;
+        
 
         gallonsNeeded += gallons;
         
         paintPrice = getPricePerGallon(paintPrice);
-        //cout << paintPrice << endl;
+        
 
         paintcharge += gallons * paintPrice;
         
