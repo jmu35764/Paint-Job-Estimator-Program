@@ -4,12 +4,11 @@
 #include <iostream>
 using namespace std;
 
-
 int getRooms(int rooms)
 {
     cout << "How many rooms need to be painted? \n";
     cin >> rooms;
-    while (rooms < 1)
+    while (rooms < 1) // Makes sure the number of rooms is more than 1
     {
         cout << "Invalid Entry. The number of rooms must be greater than 1 \n";
         cin >> rooms;
@@ -21,9 +20,8 @@ int getRooms(int rooms)
 
 int getSqFt(int &squareFeet)
 {
-    //cout << "How many square feet is in the room \n";
     cin >> squareFeet;
-    while (squareFeet < 0)
+    while (squareFeet < 0) // Makes sure the Square Feet is a positive value
     {
         cout << "Invalid entry. Square feet must be greater that 0 \n";
         cin >> squareFeet;
@@ -32,8 +30,9 @@ int getSqFt(int &squareFeet)
     return squareFeet;
 }
 
-int gallonsForRoom(int sqft)
+int gallonsForRoom(int sqft) // Gets the number of gallons per room
 {
+   
     if (sqft % 110 == 0)
     {
         return sqft / 110;
@@ -41,7 +40,7 @@ int gallonsForRoom(int sqft)
 
     else
     {
-        return sqft / 110 + 1;
+        return sqft / 110 + 1; // Round up if less than 1 gallon of paint is left over
     }
 }
 
@@ -49,7 +48,7 @@ double getPricePerGallon(double ppg)
 {
     cout << "What is the price per gallon of paint? \n";
     cin >> ppg;
-    while (ppg < 10)
+    while (ppg < 10) // Makes sure the price is less than 10$
     {
         cout << "Invalid entry. Square feet must be greater than 10 \n";
         cin >> ppg;
@@ -60,17 +59,18 @@ double getPricePerGallon(double ppg)
 
 void displayEstimate(double paintcharge, int gallonsNeeded, double laborCharge, double laborHours)
 {
-    cout << "gallons needed " << gallonsNeeded << endl;
-    cout << "labor hours " << laborHours << endl;
-    cout << "paint cost " << paintcharge << endl;
-    cout << "labor charge " << laborCharge << endl;
-    cout << "total cost " << paintcharge + laborCharge << endl;
+    cout << "Gallons of paint to purchase: " << gallonsNeeded << endl;
+    cout << "Number of hours required to paint rooms: " << laborHours << endl;
+    cout << "Cost of paint:  $" << paintcharge << endl;
+    cout << "Cost of labor:  $" << laborCharge << endl;
+    cout << "Total cost for job:  " << paintcharge + laborCharge << endl;
 }
 
 int main()
-{
+{  
     const double laborPerSqFt = 8.0 / 110.0;
     const double laborChargePerHour = 25;
+     
     
     double paintcharge = 0;
     double laborCharge = 0;
@@ -82,32 +82,34 @@ int main()
     int gallons = 0;
     double paintPrice = 0;
 
-    cout << laborPerSqFt << endl;
     numRooms = getRooms(numRooms);
    
 
     for (int x = 1; x <= numRooms; x++)
     {
         cout << "What is the square feet of room " << x << "? \n";
-        squareFeet = getSqFt(squareFeet);
+        squareFeet = getSqFt(squareFeet); // Gets Square feet value
         
 
-        gallons = gallonsForRoom(squareFeet);
+        gallons = gallonsForRoom(squareFeet); // Uses function to take square feet value and get gallon value
         
 
-        gallonsNeeded += gallons;
+        gallonsNeeded += gallons; // Adds the new value of the gallons needed to the previous value for each iteration
         
-        paintPrice = getPricePerGallon(paintPrice);
+        paintPrice = getPricePerGallon(paintPrice); // Uses function to get the paint price from input
         
 
-        paintcharge += gallons * paintPrice;
+        paintcharge += gallons * paintPrice; //Adds the multiple of gallons and paintprice of the first iteration to the current paint charge
         
         labor = squareFeet * laborPerSqFt;
 
-        laborHours += labor;
+        laborHours += labor; // Adds value to labor to the variable for the total value of labor Hours
 
-        laborCharge += labor * laborChargePerHour;
+        laborCharge += labor * laborChargePerHour; // Gets total labor charge from each iteration by adding the multiple of 
+                                                   // the labor and laborChargePerHour to the previous value of the labor charge
     }
+
+    cout << "Estimate for Painting 5 Rooms: \n";
     displayEstimate(paintcharge, gallonsNeeded, laborCharge, laborHours);
 }
 
